@@ -1,37 +1,13 @@
+// linked list implementation to practise pointers and dynamic memory allocation.
 #include<stdio.h>
 #include<stdlib.h>
+#include<stdbool.h>
 
 typedef struct Node
 {
     int val;
     struct Node*next;
 }Node;
-
-void append(Node**,int);
-void print_list(Node*);
-void front(Node**,int);
-void insertAtIdx(Node**head,int val,int idx);
-void insertAtValue(Node**headRef,int val,int newVal);
-
-int main(){
-    Node * headRef = NULL;
-    int nums [5] = {8,3,39,3,4};
-insertAtValue(&headRef,23,99);
-    insertAtIdx(&headRef,88,1);
-    
-    for(int i=0;i<5;i++){
-        append(&headRef,nums[i]);
-    }
-   front(&headRef,13);
-   front(&headRef,1);
-   insertAtIdx(&headRef,0,5);
-    insertAtValue(&headRef,99,99);
-    insertAtValue(&headRef,88,19);
-   print_list(headRef);
-  
-    
-    return 0;
-}
 
 void append(Node**headRef,int val){
     Node * newNode = (Node *) malloc(sizeof(Node));
@@ -104,3 +80,25 @@ void insertAtValue(Node**headRef,int val,int newVal){
     newN->next = current->next;
     current->next = newN;
 }
+
+bool search(Node*head,int val){
+    if(head==NULL) return false;
+    if((*head).val == val) return true;
+    return search(head->next,val);
+}
+
+int main(){
+    Node * headRef = NULL;
+    int nums [5] = {8,3,39,3,4};
+    
+    for(int i=0;i<5;i++){
+        append(&headRef,nums[i]);
+    }
+
+    bool search_res =search(headRef,8);
+    printf("the search value found %s\n",search_res?"true":"false");
+
+   print_list(headRef);
+    return 0;
+}
+
